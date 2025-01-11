@@ -22,7 +22,16 @@
 
 ### 请求格式和响应格式参考 openai
 
-## 本地开发
+
+## 运行和部署
+
+### Docker 部署
+
+```
+docker run -d --name cursor-api -p 3010:3010 ghcr.io/jiuz-chn/cursor-to-openai:latest
+```
+
+### 本地开发
 
 ```
 cd cursor-api
