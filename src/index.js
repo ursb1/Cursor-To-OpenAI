@@ -164,7 +164,7 @@ app.post('/v1/chat/completions', async (req, res) => {
   }
 });
 
-# Log to file
+// Log
 app.use((req, res, next) => {
   const logEntry = {
     time: new Date().toISOString(),
