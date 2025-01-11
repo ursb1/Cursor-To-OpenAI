@@ -40,7 +40,7 @@ app.post('/v1/chat/completions', async (req, res) => {
     const hexData = await stringToHex(messages, model);
 
     const checksum = req.headers['x-cursor-checksum'] 
-      ?? process.env['X-CURSOR-CHECKSUM'] 
+      ?? process.env['x-cursor-checksum'] 
       ?? generateCursorChecksum(authToken.trim());
 
     const response = await fetch('https://api2.cursor.sh/aiserver.v1.AiService/StreamChat', {
@@ -164,7 +164,6 @@ app.post('/v1/chat/completions', async (req, res) => {
   }
 });
 
-// Log
 app.use((req, res, next) => {
   const logEntry = {
     time: new Date().toISOString(),
@@ -174,10 +173,15 @@ app.use((req, res, next) => {
     userAgent: req.get('User-Agent')
   };
 
-  console.log(logEntry);
+  const logString = `[${logEntry.time}][${logEntry.method}][${logEntry.ip}] ${logEntry.url} `;
+  console.log(logString);
 
-  const logFilePath = path.join(__dirname, 'logs', 'access.log');
-  fs.appendFile(logFilePath, JSON.stringify(logEntry) + '\n', (err) => {
+  const logDir = path.join(__dirname, 'logs');
+  if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true });
+  }  
+  const logFilePath = path.join(logDir, 'access.log');
+  fs.appendFile(logFilePath, logString + '\n', (err) => {
     if (err) {
       console.error('Failed to write log:', err);
     }
