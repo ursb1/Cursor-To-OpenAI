@@ -193,7 +193,7 @@ app.post('/v1/chat/completions', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3011;
+const PORT = process.env.PORT || 3010;
 app.listen(PORT, () => {
   console.log(`The server listens port: ${PORT}`);
 });
