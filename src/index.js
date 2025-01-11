@@ -40,7 +40,7 @@ app.post('/v1/chat/completions', async (req, res) => {
     const hexData = await stringToHex(messages, model);
 
     const checksum = req.headers['x-cursor-checksum'] 
-      ?? process.env['x-cursor-checksum'] 
+      ?? process.env['X-CURSOR-CHECKSUM'] 
       ?? generateCursorChecksum(authToken.trim());
 
     const response = await fetch('https://api2.cursor.sh/aiserver.v1.AiService/StreamChat', {
