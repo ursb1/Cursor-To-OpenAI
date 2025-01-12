@@ -5,12 +5,15 @@
 ## 项目简介
 
 本项目提供了一个代理服务，可以将 Cursor 编辑器的 AI 能力转换为与 OpenAI API 兼容的接口，让您能够在其他应用中复用 Cursor 的 AI 能力。
+- 支持同时传入多个Cookie，使用多个英文逗号分隔
 
 ## 使用前准备
 
 1. 访问 [www.cursor.com](https://www.cursor.com) 并完成注册登录（赠送 150 次快速响应，可通过删除账号再注册重置）
 2. 在浏览器中打开开发者工具（F12）
 3. 找到 应用-Cookies 中名为 `WorkosCursorSessionToken` 的值并保存(相当于 openai 的密钥)
+
+
 
 ## 接口说明
 
