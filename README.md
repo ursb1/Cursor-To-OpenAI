@@ -31,13 +31,13 @@
 ### Docker 部署
 
 ```
-docker run -d --name cursor-api -p 3010:3010 ghcr.io/jiuz-chn/cursor-to-openai:latest
+docker run -d --name cursor-to-openai -p 3010:3010 ghcr.io/jiuz-chn/cursor-to-openai:latest
 ```
 
 ### 本地开发
 
 ```
-cd cursor-api
+cd Cursor-To-OpenAI
 npm install
 npm run start
 ```
