@@ -1,45 +1,13 @@
 const express = require('express');
+const morgan = require('morgan');
 const { v4: uuidv4 } = require('uuid');
-const { stringToHex, chunkToUtf8String, getRandomIDPro, generateCursorChecksum } = require('./utils.js');
-const fs = require('fs');
-const path = require('path');
+const { stringToHex, chunkToUtf8String, generateCursorChecksum } = require('./utils.js');
 const app = express();
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-const ENABLE_LOGGING = process.env.ENABLE_LOGGING === 'true';
-
-if (ENABLE_LOGGING) {
-  // Log middleware
-  app.use((req, res, next) => {
-
-    const logEntry = {
-      time: new Date().toISOString(),
-      ip: req.ip,
-      method: req.method,
-      url: req.originalUrl,
-      userAgent: req.get('User-Agent'),
-      contentLength: req.get('content-length') || Buffer.byteLength(JSON.stringify(req.body))
-    };
-
-    const logString = `[${logEntry.time}][${logEntry.method}][${logEntry.ip}] ${logEntry.url} - ${logEntry.contentLength} bytes`;
-    console.log(logString);
-
-    const logDir = path.join(__dirname, 'logs');
-    if (!fs.existsSync(logDir)) {
-    fs.mkdirSync(logDir, { recursive: true });
-    }  
-    const logFilePath = path.join(logDir, 'access.log');
-    fs.appendFile(logFilePath, logString + '\n', (err) => {
-    if (err) {
-      console.error('Failed to write log:', err);
-    }
-    });
-
-    next();
-  });
-}
+app.use(morgan(process.env.MORGAN_FORMAT ?? 'tiny'));
 
 app.post('/v1/chat/completions', async (req, res) => {
   // o1开头的模型，不支持流式输出
