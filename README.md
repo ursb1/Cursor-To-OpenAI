@@ -38,7 +38,7 @@ docker run -d --name cursor-to-openai -p 3010:3010 ghcr.io/jiuz-chn/cursor-to-op
 
 ```
 cd Cursor-To-OpenAI
-npm install
+npm install（初次）
 npm run start
 ```
 
